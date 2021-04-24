@@ -3,13 +3,13 @@
 Stan scripts for fitting ODE models to epidemic and viral dynamics data.
 The method is described in the preprint
 
-> T. Cassidy, P. Gillich, A.R. Humphries, and C.H. van Dorp, *Numerical methods and hypoexponential approximations for gamma distributed delay differential equations.* **todo: add link**
+> T. Cassidy, P. Gillich, A.R. Humphries, and C.H. van Dorp, *Numerical methods and hypoexponential approximations for gamma distributed delay differential equations.* [arXiv preprint](https://arxiv.org/abs/2104.03873).
 
 ## Requirements
 
 For using the Stan models, Stan version 2.4 or higher is required. 
 See the [Stan website](www.mc-stan.org) for installation details. To get the latest version of Stan,
-install `cmdstan` instad of `rstan` or `pystan`. The `cmdstan` interface for python can be installed with pip using
+install `cmdstan` instead of `rstan` or `pystan`. The `cmdstan` interface for python can be installed with pip using
 
 ```bash
 $ pip install cmdstanpy
