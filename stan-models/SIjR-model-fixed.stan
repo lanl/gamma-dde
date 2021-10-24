@@ -16,8 +16,8 @@ functions {
         // compute some rates
         real lambda = beta * sum(y[2:n+1]); // FOI: beta * (I_1 + I_2 + ... + I_n)
         real gamma = n / tau; // rate for first n-2 stages
-        real x1 = (2 + sqrt(2*(n*n/j - n))) / (tau*(1 - n/j + 2.0/n)); // rate for (n-1)-th stage
-        real x2 = 1/(2*tau/n - 1/x1); // rate for n-th stage
+        real x1 = gamma / (1 + sqrt(0.5*n*(n-j)/j)); // rate for (n-1)-th stage
+        real x2 = gamma / (1 - sqrt(0.5*n*(n-j)/j)); // rate for n-th stage
         // fill derivative
         dy[1] = -lambda * y[1]; // S, rate is -beta * S * I
         dy[2] = lambda * y[1]; // I_1, in-rate is beta * S * I 
@@ -59,7 +59,7 @@ data {
     real<lower=0> M; // population size
     int L; // number of observed generation/serial intervals
     vector<lower=0>[L] GenInt; // observed generation/serial intervals
-    int<lower=0> NumGridPts; // for plotting survival function
+    int<lower=2> NumGridPts; // for plotting survival function
 }
 
 parameters {
@@ -127,7 +127,7 @@ generated quantities {
     } // for loop to determine n
     // compute survival function for generation interval
     for ( i in 1:NumGridPts ) {
-        real t = i * max(GenInt) / NumGridPts;
+        real t = (i-1) * max(GenInt) / (NumGridPts-1);
         gen_int_surv[i] = generation_interval_lccdf(t | j, j/tau);
     }
 }

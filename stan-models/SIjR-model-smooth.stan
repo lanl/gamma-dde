@@ -61,7 +61,7 @@ data {
     real<lower=0> M; // population size
     int L; // number of observed generation/serial intervals
     vector<lower=0>[L] GenInt; // observed generation/serial intervals
-    int<lower=0> NumGridPts; // for plotting survival function
+    int<lower=2> NumGridPts; // for plotting survival function
 }
 
 parameters {
@@ -129,7 +129,7 @@ generated quantities {
     } // for loop to determine n
     // compute survival function for generation interval
     for ( i in 1:NumGridPts ) {
-        real t = i * max(GenInt) / NumGridPts;
+        real t = (i-1) * max(GenInt) / (NumGridPts-1);
         gen_int_surv[i] = generation_interval_lccdf(t | j, j/tau);
     }
 }
